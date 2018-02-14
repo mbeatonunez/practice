@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#define VERSION 1.0
+#define VERSION 1.1
 
 int isPrime(int *num);                //prime number checker function
 int primeList(int *lower, int *upper); //prime number list generator
