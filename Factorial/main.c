@@ -7,16 +7,16 @@
 
 #include <stdio.h>
 
-#define VERSION 1.0
-//hard limits of factorials
-#define MIN_FACT 0
-#define MAX_FACT 10  //anything after 15 is too large
+#define VERSION 1.1
 
 int fcalc (int *num);  //calculates the factorial of a number
 
 int main(int argc, char **argv)
-{
-	int sel = 0;               //hold the value of the menu
+{   
+    //hard limits of factorials
+	const int MIN_FACT = 0;
+    const int MAX_FACT = 10;
+    int sel = 0;               //hold the value of the menu
     int input, upper, lower;   //holds the user define limits
     
     printf("\t* * * * * * * * * * * * * *\n"); //.. I like my banners
