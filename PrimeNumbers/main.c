@@ -7,6 +7,10 @@
 
 #include "primeNumbers.h" 
 
+//minimum and maximum prime number values
+#define MIN_PRIME 1
+#define MAX_PRINME 1000
+
 int main(int argc, char **argv)
 {   
 	int upperLimit;                 //prime number range limits
@@ -22,7 +26,7 @@ int main(int argc, char **argv)
     do {                                                            //loop until someone decides to exit
         printf("\nPlease select from the following options!\n");    //menu
         printf("\t1) Check if Prime.\n");                           //checks it a number is prime
-        printf("\t2) Prime List Maker.\n");                         //list all prime numbers within a given range
+        printf("\t2) Prime List Maker [limits: 1 - 1000].\n");      //list all prime numbers within a given range. The limist to prevent memory overflow
         printf("\t3) Quit.\n");                                     //quit the program
         printf("Selection: ");
         scanf(" %d", &sel);                  
@@ -31,7 +35,7 @@ int main(int argc, char **argv)
             case 1:
                 printf("Enter a number greater than 0: ");
                 scanf(" %d", &primeCheck);
-                while (primeCheck < 1 ){                       //check if the entered number is greater than 1
+                while (primeCheck < MIN_PRIME ){                       //check if the entered number is greater than 1
                     printf("Invalid entry. Try again: ");
                     scanf(" %d", &primeCheck);
                 } 
@@ -45,13 +49,13 @@ int main(int argc, char **argv)
             case 2:
                 printf("Enter a lower limit greater than 0: ");
                 scanf(" %d", &lowerLimit);
-                while (lowerLimit < 1 ){                       //check if the entered number is greater than 1
+                while (lowerLimit < MIN_PRIME ){                       //check if the entered number is greater than 1
                     printf("Invalid entry. Try again: ");
                     scanf(" %d", &lowerLimit);
                 } 
                 printf("Enter an upper limit: ");
                 scanf(" %d", &upperLimit);
-                while (upperLimit < lowerLimit){               //check if the entered number is greater the lower limit
+                while (upperLimit < lowerLimit || upperLimit > MAX_PRINME){    //check if the entered number is greater the lower limit
                     printf("Upper limit cannot be less than Lower limit.\n");
                     printf("Try again: ");
                     scanf(" %d", &upperLimit);
