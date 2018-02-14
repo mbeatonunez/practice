@@ -62,3 +62,6 @@ practice.workspace
 PrimeNumbers/PrimeNumbers.mk
 PrimeNumbers/PrimeNumbers.project
 PrimeNumbers/PrimeNumbers.txt
+*.mk
+*.project
+*.txt
