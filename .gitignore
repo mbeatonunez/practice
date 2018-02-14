@@ -50,3 +50,15 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+.codelite/.tern-port
+.codelite/.tern-project
+.codelite/compilation.db
+.codelite/practice.session
+.codelite/practice.tags
+.codelite/refactoring.db
+Makefile
+practice.tags
+practice.workspace
+PrimeNumbers/PrimeNumbers.mk
+PrimeNumbers/PrimeNumbers.project
+PrimeNumbers/PrimeNumbers.txt
