@@ -9,11 +9,12 @@
 #define PRIMENUMBERS_HEADER
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#define VERSION 1.1
+#define VERSION 1.2
 
-int isPrime(int *num);                //prime number checker function
-int primeList(int *lower, int *upper); //prime number list generator
+int isPrime(unsigned int num);                //prime number checker function
+void primeList(unsigned int lower, unsigned int upper); //prime number list generator
 
 #endif
  

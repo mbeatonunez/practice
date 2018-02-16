@@ -8,7 +8,7 @@
 #include "primeNumbers.h" 
 
 //minimum and maximum prime number values
-#define MIN_PRIME 1
+#define MIN_PRIME 2
 #define MAX_PRINME 1000
 
 int main(int argc, char **argv)
@@ -26,20 +26,20 @@ int main(int argc, char **argv)
     do {                                                            //loop until someone decides to exit
         printf("\nPlease select from the following options!\n");    //menu
         printf("\t1) Check if Prime.\n");                           //checks it a number is prime
-        printf("\t2) Prime List Maker [limits: 1 - 1000].\n");      //list all prime numbers within a given range. The limist to prevent memory overflow
+        printf("\t2) Prime List Maker [limits: 2 - 1000].\n");      //list all prime numbers within a given range. The limist to prevent memory overflow
         printf("\t3) Quit.\n");                                     //quit the program
         printf("Selection: ");
         scanf(" %d", &sel);                  
         
         switch (sel){           //for simplicity, once an action has taken place, the program just re-starts. There is no option to remain in the selected sub-menu.
             case 1:
-                printf("Enter a number greater than 0: ");
+                printf("Enter a number greater than %d: ", (MIN_PRIME - 1));
                 scanf(" %d", &primeCheck);
                 while (primeCheck < MIN_PRIME ){                       //check if the entered number is greater than 1
                     printf("Invalid entry. Try again: ");
                     scanf(" %d", &primeCheck);
                 } 
-                if (isPrime(&primeCheck)){                  // check if the number is prime
+                if (isPrime(primeCheck)){                  // check if the number is prime
                     printf("Congrats!! %d is a prime number!\n", primeCheck);
                     break;
                 } else {
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
                     break;
                 }
             case 2:
-                printf("Enter a lower limit greater than 0: ");
+                printf("Enter a lower limit greater than %d: ", (MIN_PRIME - 1)); //ask for a number =< than the minimun
                 scanf(" %d", &lowerLimit);
                 while (lowerLimit < MIN_PRIME ){                       //check if the entered number is greater than 1
                     printf("Invalid entry. Try again: ");
@@ -60,10 +60,7 @@ int main(int argc, char **argv)
                     printf("Try again: ");
                     scanf(" %d", &upperLimit);
                 } 
-                if (!primeList(&lowerLimit, &upperLimit)){  //print the list within the range and check for error.
-                    printf("An error has occured.");
-                    break;
-                }
+                    primeList(lowerLimit, upperLimit); //print the list within the range 
                 break;
             case 3:
                 break;      
