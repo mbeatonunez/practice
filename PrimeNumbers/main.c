@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     int errCheck;                   //checks that the functions return a valid response
     
     printf("\t* * * * * * * * * * * * * *\n"); //banner.... I like making them... sue me.
-    printf("\t* Prime Number Calculator*\n");
+    printf("\t* Prime Number Calculator *\n");
     printf("\t* * * * * * * * * * * * * *\n\n");
     
     printf("Welcome to my prime number calculator. \nDont wonder why you need this.. just enjoy it!!\n"); //intro

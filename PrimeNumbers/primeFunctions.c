@@ -7,13 +7,15 @@
 int isPrime(uint32_t num){
     if (num < MIN_PRIME) return -1;
     else {
-        int check = 0;     //keeps track of the number of remainders
-        int max_factor = num/2; //optimized the number of prime checks
-        for (int i = 2; i < max_factor; i++)
-              if(!(num % i)) check++; //checks if a number is divisable by any before it
-
-        if(check == 0) return 1;          //if a number is only divisable by two numbers, then it is a prime
-        else return 0;                    //if divisable by more than 2, then it is not prime.
+        int check = 0;                      //keeps track of the number of remainders
+        int max_factor = num / 2;           //optimized the number of prime checks
+        for (int i = 2; i <= max_factor; i++)
+              if(!(num % i)) 
+                  check++;                  //checks if a number is divisable by any before it
+        if(check == 0) 
+            return 1;                       //if a number is not divisible by any number, then it is a prime
+        else 
+            return 0;                       //if divisable by a number greater than 1, then it is not prime.
       }
 }
 

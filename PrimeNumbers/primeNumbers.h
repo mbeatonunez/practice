@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define VERSION 1.3
+#define VERSION 1.4
 
 //minimum and maximum prime number values
 #define MIN_PRIME 2
