@@ -7,16 +7,13 @@
 
 #include "primeNumbers.h" 
 
-//minimum and maximum prime number values
-#define MIN_PRIME 2
-#define MAX_PRINME 1000
-
 int main(int argc, char **argv)
 {   
 	int upperLimit;                 //prime number range limits
     int lowerLimit; 
     int primeCheck;                 //number to be verified as a prime
     int sel = 0;                    //menu selection variable
+    int errCheck;                   //checks that the functions return a valid response
     
     printf("\t* * * * * * * * * * * * * *\n"); //banner.... I like making them... sue me.
     printf("\t* Prime Number Calculator*\n");
@@ -35,11 +32,15 @@ int main(int argc, char **argv)
             case 1:
                 printf("Enter a number greater than %d: ", (MIN_PRIME - 1));
                 scanf(" %d", &primeCheck);
-                while (primeCheck < MIN_PRIME ){                       //check if the entered number is greater than 1
+                while (primeCheck < MIN_PRIME ){                       //check for caller errors
                     printf("Invalid entry. Try again: ");
                     scanf(" %d", &primeCheck);
                 } 
-                if (isPrime(primeCheck)){                  // check if the number is prime
+                errCheck = isPrime(primeCheck);                        //check for function error
+                if (errCheck == -1){
+                    printf("error: value out of bounds.\n");
+                    break;
+                } else if (errCheck){                  // check if the number is prime
                     printf("Congrats!! %d is a prime number!\n", primeCheck);
                     break;
                 } else {
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
             case 2:
                 printf("Enter a lower limit greater than %d: ", (MIN_PRIME - 1)); //ask for a number =< than the minimun
                 scanf(" %d", &lowerLimit);
-                while (lowerLimit < MIN_PRIME ){                       //check if the entered number is greater than 1
+                while (lowerLimit < MIN_PRIME ){                       //check for caller errors
                     printf("Invalid entry. Try again: ");
                     scanf(" %d", &lowerLimit);
                 } 
@@ -60,7 +61,11 @@ int main(int argc, char **argv)
                     printf("Try again: ");
                     scanf(" %d", &upperLimit);
                 } 
-                    primeList(lowerLimit, upperLimit); //print the list within the range 
+                    errCheck = primeList(lowerLimit, upperLimit);  //print the list within the range and check for function error
+                    if ( errCheck == -1 ){ 
+                        printf("error: value out of bounds.\n");
+                        break;
+                    }
                 break;
             case 3:
                 break;      

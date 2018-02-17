@@ -9,12 +9,16 @@
 #define PRIMENUMBERS_HEADER
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdint.h>
 
-#define VERSION 1.2
+#define VERSION 1.3
 
-int isPrime(unsigned int num);                //prime number checker function
-void primeList(unsigned int lower, unsigned int upper); //prime number list generator
+//minimum and maximum prime number values
+#define MIN_PRIME 2
+#define MAX_PRINME 1000
+
+int isPrime(uint32_t num);                //prime number checker function
+int primeList(uint32_t lower, uint32_t upper); //prime number list generator
 
 #endif
  
