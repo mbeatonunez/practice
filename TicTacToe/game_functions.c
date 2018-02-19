@@ -7,18 +7,18 @@
 
 #include "TicTacToe.h"
 
-TABLE table;                        //game table struct
+TABLE table;                        //game board struct
 
 /*
  * CreateTable() - Generates a TicTacToe table
- * arguments: none
+ * arguments: The user defined size of the game board
  * returns: -1 if the table size is outside of range.
  *           1 if all is good.
  */ 
  int32_t CreateTable(uint32_t table_size){
     if (table_size < MINSIZE || table_size > MAXSIZE) return -1; //check for table size range violations
     else {
-        table.blocks = malloc(sizeof(uint32_t*) * table_size );  //allocate memory to the desired table size
+        table.blocks = malloc(sizeof(uint32_t*) * table_size );  //allocate memory to the desired board size
         for (int i = 0 ; i < table_size; i++)
             table.blocks[i] = malloc(sizeof(uint32_t) * table_size);
         
@@ -55,7 +55,7 @@ void DisplayTable(void){
 
 /*
  * UpdateTable - Adds the player's move to the table.
- * arguments:    The desired move, and the current player
+ * arguments:    The board selected captured and the player who took it.
  * returns:      1 if the move succeds
  *              -1 if the move fails 
  */
