@@ -65,3 +65,4 @@ PrimeNumbers/PrimeNumbers.txt
 *.mk
 *.project
 *.txt
+*.layout
