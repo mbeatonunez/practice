@@ -1,7 +1,7 @@
 /*
  * Name:        TicTacToe
  * Author:      Moises Beato Nunez
- * Description: In this program I atempt to create the TicTacToe game in C. You can create a table of any size between
+ * Description: In this program I atempt to create the TicTacToe game in C. You can create a board of any size between
  *              3x3 and 9x9. The modes include player vs player, player vs comp, and comp vs comp.
  *
  */
@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-    uint32_t playmove;          // holds the table position selected
+    uint32_t playmove;          // holds the board position selected
     uint32_t turn = 1;          // keeps track of who's turm it is. Starts with player 1
     uint32_t menu;              // holds the menu selection
     uint32_t input;             // sub-menu selection
@@ -31,21 +31,30 @@ int main(int argc, char **argv)
 
         switch (menu){
             case 1:
-                printf("\nPlease enter the size of you table (i.e \"3\" makes a 3x3 table): ");
+                printf("\nPlease enter the size of you board (i.e \"3\" makes a 3x3 board): ");
                 scanf(" %u", &input);
      
-                while (CreateTable(input) == -1){   //check to see if the table is withn the size range
+                while (CreateBoard(input) == -1){   //check to see if the board is withn the size range
                     printf("Error: entry is outside of parameters.\nTry Again: ");
                     scanf(" %u", &input);
                 }
                 while (1){           //while testing, we keep this loop infinite. Haven't created a winning condition yet
                     printf("\nIt is Player %d's turn.\n", turn);
-                    DisplayTable();    //displays the table
+                    DisplayBoard();    //displays the board
                     printf("Make your move: ");
                     scanf(" %d", &playmove);
-                    while (UpdateTable(playmove, turn) == -1){      //checks if the move was already made
+                    while (UpdateBoard(playmove, turn) == -1){      //checks if the move was already made
                         printf("Error: Invalid move.\nTry again: ");
                         scanf("%d", &playmove);
+                    }
+                    if (isWin()){  //if a winner is declare, exit loop.
+                        DisplayBoard();
+                        printf("Player %d is the winner!\n\n",turn);
+                        break;
+                    } else if (isTie()){ //if a tied is reached, exit
+                        DisplayBoard();
+                        printf("Tie. There is no winner!\n\n");
+                        break;
                     }
                     if (turn == 1){                                 //alternate between players
                         turn = 2;
@@ -55,20 +64,20 @@ int main(int argc, char **argv)
                 }
                 break;
             case 2:  //working on it
-                printf("\nPlease enter the size of you table (i.e \"3\" makes a 3x3 table): ");
+                printf("\nPlease enter the size of you board (i.e \"3\" makes a 3x3 board): ");
                 scanf(" %u", &input);
      
-                while (CreateTable(input) == -1){   //check to see if the table is withn the size range
+                while (CreateBoard(input) == -1){   //check to see if the board is withn the size range
                     printf("Error: entry is outside of parameters.\nTry Again: ");
                     scanf(" %u", &input);
                 }
                 printf("Mode under contruction. Sorry.\n");
                 break;
             case 3:  //working on it
-                printf("\nPlease enter the size of you table (i.e \"3\" makes a 3x3 table): ");
+                printf("\nPlease enter the size of you board (i.e \"3\" makes a 3x3 board): ");
                 scanf(" %u", &input);
      
-                while (CreateTable(input) == -1){   //check to see if the table is withn the size range
+                while (CreateBoard(input) == -1){   //check to see if the board is withn the size range
                     printf("Error: entry is outside of parameters.\nTry Again: ");
                     scanf(" %u", &input);
                 }
