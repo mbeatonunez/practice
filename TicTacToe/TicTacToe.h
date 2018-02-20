@@ -19,7 +19,7 @@
 typedef struct Table {
     uint32_t size;                      //size of table
     char value;                         //holds the position value. Either 'O' of 'X'
-    uint32_t **blocks;              //table blocks that hold the positions
+    uint32_t **blocks;                  //table blocks that hold the positions
 } TABLE;
 
 

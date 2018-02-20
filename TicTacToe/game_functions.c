@@ -76,3 +76,18 @@ int32_t UpdateTable(uint32_t move, uint32_t player){
     }
     return 1;                                                       //return if succesful
 }
+
+/*
+ * isWin() - Check if a player has won the game.
+ * arguments:    The board selected captured and the player who took it.
+ * returns:      1 if the move succeds
+ *              -1 if the move fails 
+ */
+bool isWin(uint8_t player){
+    if (player == 1)            
+        uint32_t xcount = 0;
+    else
+        uint32_t ycount = 0;
+    
+    //
+}
