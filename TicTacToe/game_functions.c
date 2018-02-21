@@ -7,8 +7,9 @@
 
 #include "TicTacToe.h"
 
-BOARD board;       //game board struct
-
+BOARD board;                                              //game board struct
+enum FSM {HORIZONTAL, VERTICAL, INCLINE, DECLINE};  //state machine to cycle through the winning conditions
+enum FSM state = DECLINE;                                       //start with the horizontal condition
 /*
  * CreateBoard()  Generates a TicTacToe board
  * arguments:     The user defined size of the game board
@@ -89,8 +90,8 @@ int32_t UpdateBoard(uint32_t move, uint32_t player){
  */
 bool isWin(void){
     bool winner = false;            
-    uint32_t xcount[] = {0,0,0,0}; //holds the amount of X's and O's found
-    uint32_t ocount[] = {0,0,0,0}; 
+    uint32_t xcount;        //holds the amount of X's and O's found
+    uint32_t ocount; 
 
     /* win condition:
      *      The loops checks that, for every position, if the value of the position adjacent to it
@@ -98,36 +99,73 @@ bool isWin(void){
      *      needs to match the number of rows to win the game, once the counter reaches [board.size], a winning 
      *      condition has been reached. 
      */
-    for (int i = 0; i < board.size; i++){ 
-        for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
-            //Horizontal condition
-            if ((board.blocks[i][j-1] == 'X' && board.blocks[i][j] == 'X') || (board.blocks[i][j+1] == 'X' && board.blocks[i][j] == 'X'))      xcount[0]++;
-            else if ((board.blocks[i][j-1] == 'O' && board.blocks[i][j] == 'O') || (board.blocks[i][j+1] == 'O' && board.blocks[i][j] == 'O')) ocount[0]++;
-            //Vertical condition
-            else if (i == 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X')                       xcount[1]++; //check the first position
-            else if (i == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i-1][j] == 'X')         xcount[1]++; //check the last postition
-            else if (i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X')         xcount[1]++; //check every position in between
-            else if (i == 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O')                       ocount[1]++; 
-            else if (i == (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i-1][j] == 'O')         ocount[1]++;          
-            else if (i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O')         ocount[1]++;
-            //Decline condition (\)
-//            else if (i == 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j+1] == 'X')                                          xcount[2]++; //check the first position
-//            else if (i == (board.size -1) && j == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i-1][j-1] == 'X')    xcount[2]++; //check the last postition
-//            else if (j != (board.size -1) && i != 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j+1] == 'X')                  xcount[2]++; //check every position in between
-//            else if (i == 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j+1] == 'O')                                          ocount[2]++; 
-//            else if (i == (board.size -1) && j == (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i-1][j-1] == 'O')    ocount[2]++; 
-//            else if (j != (board.size -1) && i != 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j+1] == 'O')                  ocount[2]++; 
-            //Incline condition (/)
-            else if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'X')                                     xcount[3]++; //check the first position
-            else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'X' && board.blocks[i-1][j+1] == 'X')    xcount[3]++; //check the last postition
-            else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j-1] == 'X')    xcount[3]++; //check every position in between
-            else if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'O')                                     ocount[3]++; 
-            else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'O' && board.blocks[i-1][j+1] == 'O')    ocount[3]++; 
-            else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j-1] == 'O')    ocount[3]++; 
-        }
-    } 
-    for (int i = 0; i <= board.size; i++){// if the count of adjacent potiions matches the lengt of a row, declare a winner
-        if (xcount[i] == board.size || ocount[i] == board.size) winner = true;
+    switch(state){
+        case HORIZONTAL:
+            xcount = ocount = 0;                        //initialize the count to zero 
+            for (int i = 0; i < board.size; i++){ 
+                for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
+                    if ((board.blocks[i][j-1] == 'X' && board.blocks[i][j] == 'X') || (board.blocks[i][j+1] == 'X' && board.blocks[i][j] == 'X'))      xcount++;
+                    else if ((board.blocks[i][j-1] == 'O' && board.blocks[i][j] == 'O') || (board.blocks[i][j+1] == 'O' && board.blocks[i][j] == 'O')) ocount++;
+                }
+            }
+            printf("State: %d \n", state);
+             // if the count of adjacent potiions matches the lengt of a row, declare a winner
+            if (xcount == board.size || ocount == board.size) winner = true;
+            else state = VERTICAL;
+            isWin();
+            break;
+        case VERTICAL:
+            xcount = ocount = 0;                        //reset the count to zero 
+            for (int i = 0; i < board.size; i++){ 
+                for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
+                    if (i == 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X')                    xcount++; //check the first position
+                    else if (i == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i-1][j] == 'X') xcount++; //check the last postition
+                    else if (i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X') xcount++; //check every position in between
+                    else if (i == 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O')               ocount++; 
+                    else if (i == (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i-1][j] == 'O') ocount++;          
+                    else if (i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O') ocount++;
+                }
+            }
+            printf("State: %d \n", state);
+            // if the count of adjacent potiions matches the lengt of a row, declare a winner
+            if (xcount == board.size || ocount == board.size) winner = true;
+            else state = INCLINE;
+            isWin();
+            break;
+        case INCLINE:
+            xcount = ocount = 0;                        //reset the count to zero 
+            for (int i = 0; i < board.size; i++){ 
+                for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
+                    if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'X')                                       xcount++; //check the first position
+                    else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'X' && board.blocks[i-1][j+1] == 'X') xcount++; //check the last postition
+                    else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j-1] == 'X') xcount++; //check every position in between
+                    else if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'O')                                  ocount++; 
+                    else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'O' && board.blocks[i-1][j+1] == 'O') ocount++; 
+                    else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j-1] == 'O') ocount++; 
+                }
+            }
+            printf("State: %d \n", state);
+             // if the count of adjacent potiions matches the lengt of a row, declare a winner
+            if (xcount == board.size || ocount == board.size) winner = true;
+            else state = DECLINE;
+            isWin();
+            break;
+        case DECLINE:
+            xcount = ocount = 0;                        //reset the count to zero 
+            for (int i = 0; i < board.size; i++){ 
+                for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
+                    if (i == 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j+1] == 'X')                                            xcount++; //check the first position
+                    else if (i == (board.size -1) && j == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i-1][j-1] == 'X') xcount++; //check the last postition
+                    else if (j != (board.size -1) && i != 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j+1] == 'X')               xcount++; //check the other positions 
+                    else if (i == 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j+1] == 'O')                                       ocount++; 
+                    else if (i == (board.size -1) && j == (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i-1][j-1] == 'O') ocount++; 
+                    else if (j != (board.size -1) && i != 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j+1] == 'O')               ocount++;
+                }
+            }
+            printf("State: %d \n", state);
+             // if the count of adjacent potiions matches the lengt of a row, declare a winner
+            if (xcount == board.size || ocount == board.size) winner = true;
+            break;
     }
     return winner; 
 }
