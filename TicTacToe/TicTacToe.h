@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define VERSION 0.9 //all modes completed. Wroking on bugs
+#define VERSION 1.0 //all modes completed. 
 
 #define MAXSIZE 9  //this is the maximun size posible for this table
 #define MINSIZE 3  //minimum size requirement for a proper game

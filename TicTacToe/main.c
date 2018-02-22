@@ -107,7 +107,7 @@ int main(int argc, char **argv)
                     if (isWin()){                                       //if a winner is declare, exit
                         DisplayBoard();
                         if (turn == 1) printf("Player 1 is the winner!\n\n");
-                        else printf("Computer 1 is the winner!\n\n");
+                        else printf("The Computer is the winner!\n\n");
                         free(board.blocks);                             //free allocated memory
                         break;
                     } else if (isTie()){                                //if a tied is reached, exit
@@ -134,6 +134,7 @@ int main(int argc, char **argv)
                 }
                 turn = 1;                                               //always start with player one
                 printf("\nComputer 1 = X     Computer 2 = O.\n");   
+                //DisplayBoard();
                 while (1){
                     comp = rand() % ((board.size * board.size ) + 1);          //generate a random number between 1 and the square of the board size
                     while (UpdateBoard(comp, turn) == -1){              //enter Generated number as move
