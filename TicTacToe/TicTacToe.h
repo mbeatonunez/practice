@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define VERSION 0.7 //working on winning condition
+#define VERSION 0.8 //working PvC mode
 
 #define MAXSIZE 9  //this is the maximun size posible for this table
 #define MINSIZE 3  //minimum size requirement for a proper game
