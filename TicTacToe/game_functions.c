@@ -118,6 +118,7 @@ bool isWin(void){
                     if (i == 0 && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X')                    xcount++; //check the first position
                     else if (i == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i-1][j] == 'X') xcount++; //check the last postition
                     else if (i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j] == 'X') xcount++; //check every position in between
+                    
                     else if (i == 0 && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O')               ocount++; 
                     else if (i == (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i-1][j] == 'O') ocount++;          
                     else if (i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j] == 'O') ocount++;
@@ -129,9 +130,10 @@ bool isWin(void){
             xcount = ocount = 0;                        //reset the count to zero 
             for (int i = 0; i < board.size; i++){       
                 for (int j = 0; j < board.size; j++){   //If there is an X or O adjacent to the selected position, increment the count by 1
-                    if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'X')                                       xcount++; //check the first position
+                    if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j-1] == 'X')      xcount++; //check the first position
                     else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'X')                                  xcount++; //check the last postition
                     else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'X' && board.blocks[i+1][j-1] == 'X') xcount++; //check every position in between
+                    
                     else if (i == 0 && j == (board.size -1) && board.blocks[i][j] == 'O')                                  ocount++; 
                     else if (i == (board.size -1) && j == 0 && board.blocks[i][j] == 'O')                                  ocount++; 
                     else if (j != 0 && i != (board.size -1) && board.blocks[i][j] == 'O' && board.blocks[i+1][j-1] == 'O') ocount++; 
@@ -139,6 +141,7 @@ bool isWin(void){
             }
              // if the count of adjacent potiions matches the lengt of a row, declare a winner
             if (xcount == board.size || ocount == board.size) winner = true;
+            break;
         case DECLINE:                                   //decline winning condition (\)
             xcount = ocount = 0;                        //reset the count to zero 
             for (int i = 0; i < board.size; i++){       

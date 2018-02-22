@@ -11,8 +11,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
-#define VERSION 0.8 //working PvC mode
+#define VERSION 0.9 //all modes completed. Wroking on bugs
 
 #define MAXSIZE 9  //this is the maximun size posible for this table
 #define MINSIZE 3  //minimum size requirement for a proper game
@@ -22,6 +23,7 @@ typedef struct Board {
     uint32_t **blocks;                  //empty 2-D matrix
 } BOARD;
 
+extern BOARD board;
 
 int32_t CreateBoard(uint32_t size);               //creat the game board
 void DisplayBoard(void);                                //displays the game board
