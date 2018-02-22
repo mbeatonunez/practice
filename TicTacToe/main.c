@@ -98,7 +98,7 @@ int main(int argc, char **argv)
                         }
                         
                     } else {
-                        comp = rand() % (board.size * board.size);      //generate a random number between 1 and the square of the board size
+                        comp = rand() % ((board.size * board.size ) +1 );  //generate a random number between 1 and the square of the board size
                         while (UpdateBoard(comp, turn) == -1){          //enter Generated number as move
                             comp = rand() % (input * input);            //generate a new number is the previous number was already entered
                         }
@@ -135,12 +135,10 @@ int main(int argc, char **argv)
                 turn = 1;                                               //always start with player one
                 printf("\nComputer 1 = X     Computer 2 = O.\n");   
                 while (1){
-                    DisplayBoard(); //remove after bug is fixed
-                    comp = rand() % (board.size * board.size);          //generate a random number between 1 and the square of the board size
+                    comp = rand() % ((board.size * board.size ) + 1);          //generate a random number between 1 and the square of the board size
                     while (UpdateBoard(comp, turn) == -1){              //enter Generated number as move
                         comp = rand() % (input * input);                //generate a new number is the previous number was already entered
                     }
-                    printf("Comp %d's move: %d\n",turn, comp); //remove after bug is fixed
                     if (isWin()){                                       //if a winner is declare, exit
                         DisplayBoard();
                         printf("Computer %d is the winner!\n\n", turn);

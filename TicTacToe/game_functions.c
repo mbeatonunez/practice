@@ -141,7 +141,6 @@ bool isWin(void){
             }
              // if the count of adjacent potiions matches the lengt of a row, declare a winner
             if (xcount == board.size || ocount == board.size) winner = true;
-            break;
         case DECLINE:                                   //decline winning condition (\)
             xcount = ocount = 0;                        //reset the count to zero 
             for (int i = 0; i < board.size; i++){       
