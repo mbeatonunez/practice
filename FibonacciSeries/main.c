@@ -1,8 +1,8 @@
 /*
  * Name:        Fibonacci Series
  * Author:      Moises Beato Nunez
- * Description: Here I try to figure out how to print the fibonacci series. Like the other programs, the user can define
- *              the lenght of the series. 
+ * Description: Here I try to figure out how to print the Fibonacci series. Like the other programs, the user can define
+ *              the length of the series. 
  *
  */ 
 
@@ -33,14 +33,14 @@ int main(int argc, char **argv)
         scanf(" %d", &menu);                            //user input
         switch(menu){
             case 1:
-                printf("Please enter the lenght of the series: ");
+                printf("Please enter the length of the series: ");
                 scanf(" %d", &input);
                 while (input < LowerLimit || input > UpperLimit){     //check for limit errors
-                    printf("Entry is outside of limit bounderies. Try again: ");
+                    printf("Entry is outside of limit boundaries. Try again: ");
                     scanf(" %d", &input);
                 }
                 if (!printFibo(&input)){                    //checks to see if the function cashed.
-                    printf("An error has occured!.\n");
+                    printf("An error has occurred!.\n");
                     break;
                 }
                 break;
@@ -55,11 +55,11 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-//print the fibonacci series for a given length
+//print the Fibonacci series for a given length
 int printFibo(int *length){
     int fibo1 = 0; //holds the previous value of the series
     int fibo2 = 1; //holds the next value on the series
-    int count = 0; //hold the count of the numbers printes
+    int count = 0; //hold the count of the numbers printed
     printf("Series:\n"); 
     while (count < *length){ 
         printf("%d ", fibo1);
